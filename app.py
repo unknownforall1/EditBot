@@ -657,20 +657,8 @@ def print_numbers():
         time.sleep(1)
 
 # Main entry point
-if __name__ == '__main__':
-    # Start the Flask app in a separate process
-    flask_process = multiprocessing.Process(target=run_flask_app)
-    flask_process.start()
-
-    # Give the Flask app some time to start up
-    time.sleep(2)  # Adjust if necessary to ensure the server starts
-
-    # Start printing numbers
-    print_numbers()
-
-
-
 
 
 if __name__ == "__main__":
     app.run()
+    
