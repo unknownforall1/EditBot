@@ -10,6 +10,11 @@ motor
 openai==0.27.0
 pyrogram
 tgcrypto
+selenium
+webdriver-manager
+
+pyrogram
+tgcrypto
 requests
 telegraph
 Jinja2==3.0.3
