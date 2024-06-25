@@ -115,3 +115,50 @@ def bot_status(client, message):
     message.reply_text("🟢 Bot is alive and functioning properly!")
 
 
+
+from pyrogram import Client, filters
+from pyrogram.types import Message
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+import time
+
+
+# Function to open a browser and keep the tab active
+def open_and_keep_replit_active(replit_link):
+    options = Options()
+    options.add_argument("--disable-notifications")
+    options.add_argument("--start-maximized")
+    options.add_argument("--headless")  # Headless mode, remove this if you need to see the browser
+
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+
+    try:
+        driver.get(replit_link)
+        print(f'Opened {replit_link} in browser.')
+
+        while True:
+            time.sleep(300)  # Refresh every 5 minutes
+            driver.refresh()
+            print(f'Refreshed {replit_link}')
+    except Exception as e:
+        print(f'Error keeping Replit link active: {e}')
+    finally:
+        driver.quit()
+
+# Command handler for /run
+@app.on_message(filters.command("run") & filters.private)
+def run_replit(client: Client, message: Message):
+    if len(message.command) < 2:
+        message.reply_text("Please provide a Replit link.")
+        return
+    
+    replit_link = message.command[1]
+    if not replit_link.startswith("http"):
+        message.reply_text("Invalid Replit link. Please provide a valid URL.")
+        return
+
+    message.reply_text(f"Running Replit link: {replit_link}")
+
+    open_and_keep_replit_active(replit_link)
