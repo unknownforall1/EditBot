@@ -10,14 +10,15 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 import uvloop
 uvloop.install()
 from config import Config
-from pyrogram import Client 
+from pyrogram import Client
+BOT_TOKEN="7253981024:AAHI3109PCru3EzaPtOznP7tURmIR2oB-To"
 
 
 class channelforward(Client, Config):
     def __init__(self):
         super().__init__(
             name="CHANNELFORWARD",
-            bot_token=self.BOT_TOKEN,
+            bot_token=BOT_TOKEN,
             api_id=self.API_ID,
             api_hash=self.API_HASH,
             workers=20,
